@@ -17,6 +17,7 @@
     "gulp": "^3.8.10",
     "gulp-notify": "^2.1.0",
     "gulp-util": "^3.0.1",
+    "jest-cli": "^0.8.2",
     "pretty-hrtime": "^0.2.2",
     "require-dir": "^0.1.0",
     "underscore": "^1.7.0",
@@ -24,9 +25,11 @@
     "watchify": "^2.2.1"
   },
   "dependencies": {
+    "history": "^1.17.0",
     "material-ui": "^0.14.0",
     "react": "^0.14.0",
-    "react-dom":"^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.3",
     "react-tap-event-plugin": "^0.2.1"
   }
 }

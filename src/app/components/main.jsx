@@ -8,13 +8,6 @@ import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 import Colors from 'material-ui/lib/styles/colors';
 import FlatButton from 'material-ui/lib/flat-button';
 
-import Login from './Login/Login'
-
-const containerStyle = {
-  textAlign: 'center',
-  paddingTop: 200,
-};
-
 const Main = React.createClass({
 
   childContextTypes: {
@@ -24,8 +17,7 @@ const Main = React.createClass({
   getInitialState() {
     return {
       muiTheme: ThemeManager.getMuiTheme(LightRawTheme),
-      open: false,
-      currentComponent: <Login />
+      open: false
     };
   },
 
@@ -58,7 +50,7 @@ const Main = React.createClass({
   render() {
     return (
       <div>
-        {this.state.currentComponent}
+        <h1>Hello, World!</h1>
       </div>
     );
   },

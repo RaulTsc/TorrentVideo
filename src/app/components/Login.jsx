@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
@@ -12,8 +13,30 @@ const Login = React.createClass({
     }
   },
 
-  login() {
+  login(info, cb) {
+    cb = cb || function () {}
 
+    var USERNAME = 'Raul',
+        PASSWORD = 'pw'
+    var retVal = {}
+
+    if(info.username === USERNAME && info.password === PASSWORD) {
+      retVal.success = true
+    }
+
+    if(info.username !== USERNAME) {
+      retVal.wrongUsername = true
+    } else {
+      retVal.wrongUsername = false
+    }
+
+    if(info.password !== PASSWORD) {
+      retVal.wrongPassword = true
+    } else {
+      retVal.wrongPassword = false
+    }
+
+    cb(retVal)
   },
 
   onLoginPress() {
@@ -22,18 +45,29 @@ const Login = React.createClass({
       password: this.refs.password.getValue()
     }
 
+    var that = this
+
     function cb (res) {
       if(res.success) {
       } else {
-        if(res.wrongUsername) {
-          this.setState({
+        if(!!res.wrongUsername) {
+          that.setState({
             usernameFieldState: 'The username you have entered could not be found.'
+          })
+        } else {
+          that.setState({
+            usernameFieldState: ''
           })
         }
 
-        if(res.wrongPassword) {
-          this.setState({
+        if(!!res.wrongPassword) {
+          that.setState({
             passwordFieldState: 'The password you have entered is incorrect.'
+          })
+        } else {
+          console.log('here')
+          that.setState({
+            passwordFieldState: ''
           })
         }
       }
@@ -56,6 +90,12 @@ const Login = React.createClass({
       width: '400px'
     }
 
+    var anchorStyle = {
+      textDecoration: 'initial',
+      color: '#00bcd4',
+      marginLeft: '5px'
+    }
+
     return (
       <div style={containerStyle}>
         <TextField
@@ -76,6 +116,9 @@ const Login = React.createClass({
           secondary={true}
           style={raisedButtonStyle}
           onTouchTap={this.onLoginPress} />
+        <p>Not a member?
+          <Link to='/signup' style={anchorStyle}>Sign up!</Link>
+        </p>
       </div>
     )
   }
