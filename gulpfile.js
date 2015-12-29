@@ -1,5 +1,5 @@
 var gulp       = require('gulp'),
-  browserSync  = require('browser-sync'),
+  browserSync  = require('browser-sync').create(),
   reload       = browserSync.reload,
   nodemon      = require('gulp-nodemon'),
   browserify   = require('browserify'),
@@ -23,7 +23,7 @@ gulp.task('setWatch', function () {
 gulp.task('browserSync', ['build', 'nodemon'], function () {
   browserSync.init(null, {
     proxy: 'http://localhost:5000',
-    files: './build/**',
+    files: [ './build/**' ],
     port: 7000
   })
 })

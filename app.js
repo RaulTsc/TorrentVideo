@@ -8,3 +8,10 @@ app.use(serveStatic(__dirname + '/build'))
 app.listen(PORT, function () {
   console.log('Server listening on port ' + PORT)
 })
+
+// Routes
+app.post('/login', function (req, res) {
+  res.send({
+    success: true
+  })
+})

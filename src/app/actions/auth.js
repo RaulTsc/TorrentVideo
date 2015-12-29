@@ -7,14 +7,21 @@ module.exports = {
 
   login(info, cb) {
     cb = cb || noop
+    self = this
 
-    var request = require('superagent')
-
-    request.post('localhost:3000/login', info, function (res) {
-      console.log(res)
+    $.ajax({
+      url: '/login',
+      dataType: 'json',
+      type: 'POST',
+      data: info,
+      success: function (data) {
+        self.isLoggedInBool = true
+        cb(data)
+      },
+      error: function (err) {
+        console.log('error')
+      }
     })
-
-    cb(res)
   },
 
   register(info, cb) {
