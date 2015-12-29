@@ -1,13 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 
-import { Link } from 'react-router'
+import Auth from '../actions/auth'
 
 const Signup = React.createClass({
 
-  getInitialState() {
+  contextTypes: {
+    history: React.PropTypes.object.isRequired
+  },
+
+  getInitialState () {
     return {
       usernameFieldState: '',
       passwordFieldState: '',
@@ -15,44 +20,62 @@ const Signup = React.createClass({
     }
   },
 
-  render() {
-    var raisedButtonStyle = {
-      marginTop: '20px'
+  onRegisterPress () {
+    const self = this
+
+    let registerInfo = {
+      username: this.refs.username.getValue(),
+      password: this.refs.password.getValue(),
+      repassword: this.refs.repassword.getValue()
     }
 
-    var containerStyle = {
-      paddingTop: '200px',
-      textAlign: 'center'
+    function cb(res) {
+      if(res.success) {
+        self.context.history.pushState(null, '/')
+      } else {
+        var username = !!res.wrongUsername ? 'The username is already taken.' : ''
+        
+        self.setState({
+          usernameFieldState: username
+        })
+      }
     }
 
-    var textfieldStyle = {
-      width: '400px'
-    }
+    Auth.register(registerInfo, cb)
+  },
 
-    var anchorStyle = {
-      textDecoration: 'initial',
-      color: '#00bcd4',
-      marginLeft: '5px'
+  render () {
+    let style = {
+      raisedButton: {
+        marginTop: '20px'
+      },
+      container: {
+        paddingTop: '200px',
+        textAlign: 'center'
+      },
+      textfield: {
+        width: '400px'
+      }
     }
 
     return (
-      <div style={containerStyle}>
+      <div style={style.container}>
         <TextField
           ref='username'
-          style={textfieldStyle}
+          style={style.textfield}
           errorText={this.state.usernameFieldState}
           floatingLabelText='Username' />
         <br />
         <TextField
           ref='password'
-          style={textfieldStyle}
+          style={style.textfield}
           errorText={this.state.passwordFieldState}
           floatingLabelText='Password'
           type='password' />
         <br />
         <TextField
-          ref='password'
-          style={textfieldStyle}
+          ref='repassword'
+          style={style.textfield}
           errorText={this.state.rePasswordFieldState}
           floatingLabelText='Re-enter Password'
           type='password' />
@@ -60,8 +83,8 @@ const Signup = React.createClass({
         <RaisedButton
           label='Register'
           secondary={true}
-          style={raisedButtonStyle}
-          onTouchTap={this.onLoginPress} />
+          style={style.raisedButton}
+          onTouchTap={this.onRegisterPress} />
       </div>
     )
   }

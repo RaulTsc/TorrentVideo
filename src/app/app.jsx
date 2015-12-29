@@ -15,10 +15,8 @@ import Auth from './actions/auth'
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-const isLoggedIn = false
-
 function requireAuth (nextState, replaceState) {
-  if(!isLoggedIn) {
+  if(!Auth.isLoggedIn()) {
     replaceState({ nextPathName: nextState.location.pathname }, '/login')
   }
 }

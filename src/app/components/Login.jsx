@@ -4,7 +4,13 @@ import { Link } from 'react-router'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 
+import Auth from '../actions/auth'
+
 const Login = React.createClass({
+
+  contextTypes: {
+    history: React.PropTypes.object.isRequired
+  },
 
   getInitialState() {
     return {
@@ -13,100 +19,61 @@ const Login = React.createClass({
     }
   },
 
-  login(info, cb) {
-    cb = cb || function () {}
-
-    var USERNAME = 'Raul',
-        PASSWORD = 'pw'
-    var retVal = {}
-
-    if(info.username === USERNAME && info.password === PASSWORD) {
-      retVal.success = true
-    }
-
-    if(info.username !== USERNAME) {
-      retVal.wrongUsername = true
-    } else {
-      retVal.wrongUsername = false
-    }
-
-    if(info.password !== PASSWORD) {
-      retVal.wrongPassword = true
-    } else {
-      retVal.wrongPassword = false
-    }
-
-    cb(retVal)
-  },
-
   onLoginPress() {
+    const self = this
+
     let loginInfo = {
       username: this.refs.username.getValue(),
       password: this.refs.password.getValue()
     }
 
-    var that = this
-
     function cb (res) {
       if(res.success) {
+        self.context.history.pushState(null, '/')
       } else {
-        if(!!res.wrongUsername) {
-          that.setState({
-            usernameFieldState: 'The username you have entered could not be found.'
-          })
-        } else {
-          that.setState({
-            usernameFieldState: ''
-          })
-        }
+        let username = !!res.wrongUsername ? 'The username you have entered could not be found.' : ''
+        let password = !!res.wrongPassword ? 'The password you have entered is incorrect.' : ''
 
-        if(!!res.wrongPassword) {
-          that.setState({
-            passwordFieldState: 'The password you have entered is incorrect.'
-          })
-        } else {
-          console.log('here')
-          that.setState({
-            passwordFieldState: ''
-          })
-        }
+        self.setState({
+          usernameFieldState: username,
+          passwordFieldState: password
+        })
       }
     }
 
-    this.login(loginInfo, cb)
+    Auth.login(loginInfo, cb)
   },
 
   render() {
-    var raisedButtonStyle = {
-      marginTop: '20px'
-    }
-
-    var containerStyle = {
-      paddingTop: '200px',
-      textAlign: 'center'
-    }
-
-    var textfieldStyle = {
-      width: '400px'
-    }
-
-    var anchorStyle = {
-      textDecoration: 'initial',
-      color: '#00bcd4',
-      marginLeft: '5px'
+    let style = {
+      raisedButton: {
+        marginTop: '20px'
+      },
+      container: {
+        paddingTop: '200px',
+        textAlign: 'center'
+      },
+      textfield: {
+        width: '400px'
+      },
+      anchor: {
+        textDecoration: 'initial',
+        color: '#00bcd4',
+        marginLeft: '5px'
+      }
     }
 
     return (
-      <div style={containerStyle}>
+      <div style={style.container}>
         <TextField
           ref='username'
-          style={textfieldStyle}
+          style={style.textfield}
           errorText={this.state.usernameFieldState}
           floatingLabelText='Username' />
         <br />
         <TextField
           ref='password'
-          style={textfieldStyle}
+          style={style.textfield}
           errorText={this.state.passwordFieldState}
           floatingLabelText='Password'
           type='password' />
@@ -114,10 +81,10 @@ const Login = React.createClass({
         <RaisedButton
           label='Login'
           secondary={true}
-          style={raisedButtonStyle}
+          style={style.raisedButton}
           onTouchTap={this.onLoginPress} />
         <p>Not a member?
-          <Link to='/signup' style={anchorStyle}>Sign up!</Link>
+          <Link to='/signup' style={style.anchor}>Sign up!</Link>
         </p>
       </div>
     )
