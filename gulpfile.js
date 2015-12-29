@@ -21,7 +21,11 @@ gulp.task('setWatch', function () {
 })
 
 gulp.task('browserSync', ['build', 'nodemon'], function () {
-  browserSync.init(null, config.browserSync)
+  browserSync.init(null, {
+    proxy: 'http://localhost:5000',
+    files: './build/**',
+    port: 7000
+  })
 })
 
 gulp.task('nodemon', function (cb) {

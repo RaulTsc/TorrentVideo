@@ -3,12 +3,6 @@ var dest = './build',
 
 module.exports = {
 
-  browserSync: {
-    proxy: 'http://localhost:5000',
-    files: './build/**',
-    port: 7000
-  },
-
   markup: {
     src: src + "/www/**",
     dest: dest
