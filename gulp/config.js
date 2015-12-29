@@ -1,22 +1,19 @@
 var dest = './build',
-  src = './src',
-  mui = './node_modules/material-ui/src';
+  src    = './src'
 
 module.exports = {
+
   browserSync: {
-    server: {
-      // We're serving the src folder as well
-      // for sass sourcemap linking
-      baseDir: [dest, src]
-    },
-    files: [
-      dest + '/**'
-    ]
+    proxy: 'http://localhost:5000',
+    files: './build/**',
+    port: 7000
   },
+
   markup: {
     src: src + "/www/**",
     dest: dest
   },
+
   browserify: {
     // Enable source maps
     debug: true,
@@ -29,4 +26,4 @@ module.exports = {
     }],
     extensions: ['.jsx'],
   }
-};
+}

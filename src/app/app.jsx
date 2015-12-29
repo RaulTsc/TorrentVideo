@@ -21,8 +21,6 @@ function requireAuth (nextState, replaceState) {
   }
 }
 
-// Render the main app react component into the app div.
-// For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={Main} onEnter={requireAuth} />
