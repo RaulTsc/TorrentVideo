@@ -22,7 +22,7 @@ module.exports = {
     })
   },
 
-  register(info, cb) {
+  signup(info, cb) {
     cb = cb || noop
     const self = this
 

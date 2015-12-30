@@ -16,14 +16,16 @@ const Signup = React.createClass({
     return {
       usernameFieldState: '',
       passwordFieldState: '',
-      rePasswordFieldState: ''
+      repasswordFieldState: '',
+      passwordFieldValue: '',
+      repasswordFieldValue: ''
     }
   },
 
-  onRegisterPress () {
+  onSignupPress () {
     const self = this
 
-    let registerInfo = {
+    let signupInfo = {
       username: this.refs.username.getValue(),
       password: this.refs.password.getValue(),
       repassword: this.refs.repassword.getValue()
@@ -34,14 +36,39 @@ const Signup = React.createClass({
         self.context.history.pushState(null, '/')
       } else {
         var username = !!res.wrongUsername ? 'The username is already taken.' : ''
-        
+
         self.setState({
           usernameFieldState: username
         })
       }
     }
 
-    Auth.register(registerInfo, cb)
+    Auth.signup(signupInfo, cb)
+  },
+
+  checkEqualPw (oEvent) {
+    var stateObj = {},
+      self       = this
+
+    if(oEvent.target.id === 'password') {
+      stateObj.passwordFieldValue = oEvent.target.value
+    } else {
+      stateObj.repasswordFieldValue = oEvent.target.value
+    }
+
+    this.setState(stateObj, function () {
+      if (self.state.passwordFieldValue === self.state.repasswordFieldValue) {
+        self.setState({
+          passwordFieldState: '',
+          repasswordFieldState: ''
+        })
+      } else {
+        self.setState({
+          passwordFieldState: 'These fields should match',
+          repasswordFieldState: 'These fields should match'
+        })
+      }
+    })
   },
 
   render () {
@@ -68,23 +95,27 @@ const Signup = React.createClass({
         <br />
         <TextField
           ref='password'
+          id='password'
           style={style.textfield}
           errorText={this.state.passwordFieldState}
+          onChange={this.checkEqualPw}
           floatingLabelText='Password'
           type='password' />
         <br />
         <TextField
           ref='repassword'
+          id='repassword'
           style={style.textfield}
-          errorText={this.state.rePasswordFieldState}
+          errorText={this.state.repasswordFieldState}
+          onChange={this.checkEqualPw}
           floatingLabelText='Re-enter Password'
           type='password' />
         <br />
         <RaisedButton
-          label='Register'
+          label='Sign up'
           secondary={true}
           style={style.raisedButton}
-          onTouchTap={this.onRegisterPress} />
+          onTouchTap={this.onSignupPress} />
       </div>
     )
   }
