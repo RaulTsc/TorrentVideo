@@ -1,6 +1,5 @@
-/** In this file, we create a React component which incorporates components provided by material-ui */
-
 import React from 'react';
+
 import RaisedButton from 'material-ui/lib/raised-button';
 import Dialog from 'material-ui/lib/dialog';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
@@ -8,10 +7,16 @@ import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 import Colors from 'material-ui/lib/styles/colors';
 import FlatButton from 'material-ui/lib/flat-button';
 
-const Main = React.createClass({
+import Auth from '../actions/auth'
+
+const Home = React.createClass({
 
   childContextTypes: {
-    muiTheme: React.PropTypes.object,
+    muiTheme: React.PropTypes.object
+  },
+
+  contextTypes: {
+    history: React.PropTypes.object.isRequired
   },
 
   getInitialState() {
@@ -47,13 +52,19 @@ const Main = React.createClass({
     });
   },
 
+  logout() {
+    this.context.history.pushState(null, '/login')
+    Auth.logout()
+  },
+
   render() {
     return (
       <div>
         <h1>Hello, World!</h1>
+        <a href='#' onClick={this.logout}>Log out</a>
       </div>
     );
   },
 });
 
-export default Main
+export default Home

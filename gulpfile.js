@@ -24,6 +24,9 @@ gulp.task('browserSync', ['build', 'nodemon'], function () {
   browserSync.init(null, {
     proxy: 'http://localhost:5000',
     port: 7000,
+    files: [
+      'build/app.js'
+    ],
     notify: true
   })
 })

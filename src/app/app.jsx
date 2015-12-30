@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { browserHistory, Router, Route, Link } from 'react-router'
 
-import Main from './components/main'; // Our custom react component
+import Home from './components/Home';
 import Login from './components/Login'
 import Signup from './components/Signup'
 
@@ -23,7 +23,7 @@ function requireAuth (nextState, replaceState) {
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path='/' component={Main} onEnter={requireAuth} />
+    <Route path='/' component={Home} onEnter={requireAuth} />
     <Route path='/login' component={Login} />
     <Route path='/signup' component={Signup} />
   </Router>

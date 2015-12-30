@@ -1,13 +1,11 @@
 module.exports = {
-  isLoggedInBool: false,
-
   isLoggedIn() {
-    return this.isLoggedInBool
+    return !!localStorage.token
   },
 
   login(info, cb) {
     cb = cb || noop
-    self = this
+    const self = this
 
     $.ajax({
       url: '/login',
@@ -15,23 +13,36 @@ module.exports = {
       type: 'POST',
       data: info,
       success: function (data) {
-        self.isLoggedInBool = true
+        localStorage.token = data.token
         cb(data)
       },
       error: function (err) {
-        console.log('error')
+        console.log('Error', err)
       }
     })
   },
 
   register(info, cb) {
     cb = cb || noop
-    let res = {
-      success: false,
-      wrongUsername: true
-    }
-    // this.isLoggedInBool = true
-    cb(res)
+    const self = this
+
+    $.ajax({
+      url: '/signup',
+      dataType: 'json',
+      type: 'POST',
+      data: info,
+      success: function (data) {
+        localStorage.token = data.token
+        cb(data)
+      },
+      error: function (err) {
+        console.log('Error', err)
+      }
+    })
+  },
+
+  logout() {
+    delete localStorage.token
   }
 }
 
