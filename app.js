@@ -2,6 +2,8 @@ var express   = require('express'),
   serveStatic = require('serve-static'),
   bodyParser  = require('body-parser'),
   jwt         = require('jsonwebtoken'),
+  path        = require('path'),
+  http        = require('http'),
   Account     = require('./models/accounts'),
   mongoose    = require('mongoose'),
   app         = express(),
@@ -21,6 +23,8 @@ app.listen(PORT, function () {
 })
 
 // Routes
+
+// Handle login
 app.post('/login', function (req, res) {
   var response = {}
   Account.findOne({username: req.body.username}, function (err, acc) {
@@ -48,6 +52,7 @@ app.post('/login', function (req, res) {
   })
 })
 
+// Handle signup
 app.post('/signup', function (req, res) {
   var response = {}
   Account.findOne({username: req.body.username}, function (err, acc) {
@@ -71,3 +76,54 @@ app.post('/signup', function (req, res) {
     }
   })
 })
+
+var DATA_OBJECT = [],
+    SRV_INFO    = {     // Info about the other node instance, the one downloading the torrents
+      host: 'localhost',
+      port: '3000',
+      path: '/data'
+    }
+
+// Get data about the torrents
+app.get('/getData', function (req, res) {
+  res.send(DATA_OBJECT)
+})
+
+function createEndpoints () {
+  DATA_OBJECT.forEach(function (item) {
+    app.get('/'+item.url, function (req, res) {
+      var dldLink = path.join(__dirname, '../AutonomousTorrentDownloading/downloadedFiles', item.url)
+      res.download(dldLink)
+    })
+  })
+}
+
+function pollData () {
+  http.request(SRV_INFO, function (res) {
+    var resData = ''
+
+    res.on('data', function (chunk) {
+      resData += chunk
+    })
+
+    res.on('end', function () {
+      resData = JSON.parse(resData)
+      DATA_OBJECT = []
+
+      function goodFormat (item) {
+        return item.hasOwnProperty('link') && item.hasOwnProperty('title')
+      }
+
+      resData.filter(goodFormat).forEach(function(item) {
+        DATA_OBJECT.push({
+          url: item.link,
+          name: item.title
+        })
+      })
+
+      createEndpoints()
+    })
+  }).end()
+}
+pollData()
+setInterval(pollData, 1000 * 60)    // Every 60 seconds

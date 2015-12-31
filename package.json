@@ -26,9 +26,11 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "history": "^1.17.0",
+    "http": "0.0.0",
     "jsonwebtoken": "^5.5.0",
     "material-ui": "^0.14.0",
     "mongoose": "^4.3.4",
+    "path": "^0.12.7",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.3",
