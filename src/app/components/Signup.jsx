@@ -35,7 +35,7 @@ const Signup = React.createClass({
       if(res.success) {
         self.context.history.pushState(null, '/')
       } else {
-        var username = !!res.wrongUsername ? 'The username is already taken.' : ''
+        let username = !!res.wrongUsername ? 'The username is already taken.' : ''
 
         self.setState({
           usernameFieldState: username
@@ -47,7 +47,7 @@ const Signup = React.createClass({
   },
 
   checkEqualPw (oEvent) {
-    var stateObj = {},
+    let stateObj = {},
       self       = this
 
     if(oEvent.target.id === 'password') {

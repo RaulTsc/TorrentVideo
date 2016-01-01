@@ -1,4 +1,4 @@
-var gutil      = require('gulp-util'),
+const gutil      = require('gulp-util'),
   prettyHrtime = require('pretty-hrtime'),
   startTime
 
@@ -9,8 +9,8 @@ module.exports = {
   },
 
   end: function(filepath) {
-    var taskTime = process.hrtime(startTime)
-    var prettyTime = prettyHrtime(taskTime)
+    const taskTime = process.hrtime(startTime)
+    const prettyTime = prettyHrtime(taskTime)
     gutil.log('Bundled', gutil.colors.green(filepath), 'in', gutil.colors.magenta(prettyTime))
   }
 }

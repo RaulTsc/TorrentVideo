@@ -24,9 +24,6 @@ gulp.task('browserSync', ['build', 'nodemon'], function () {
   browserSync.init(null, {
     proxy: 'http://localhost:5000',
     port: 7000,
-    files: [
-      'build/app.js'
-    ],
     notify: true
   })
 })
@@ -37,11 +34,12 @@ gulp.task('nodemon', function (cb) {
     script: 'app.js',
     ignore: [
       'gulpfile.js',
-      'node_modules/*',
+      'node_modules/**',
       'build/**',
       'src/**',
       'test/**',
-      '.babelrc'
+      '.babelrc',
+      'package.json'
     ]
   })
   .on('start', function () {
@@ -98,7 +96,9 @@ gulp.task('browserify', function(callback) {
         .on('end', reportFinished)
     };
 
-    bundler.transform(babelify.configure({stage: 1}))
+    bundler.transform(babelify.configure({
+      stage: 1
+    }))
 
     if (global.isWatching) {
       // Wrap with watchify and rebundle on changes

@@ -3,14 +3,11 @@ import React from 'react'
 import AppBar from 'material-ui/lib/app-bar'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
-import Divider from 'material-ui/lib/divider'
 import IconButton from 'material-ui/lib/icon-button'
-import ActionHome from 'material-ui/lib/svg-icons/action/home'
 import AvVideoLibrary from 'material-ui/lib/svg-icons/av/video-library'
 import ActionPowerSettingsNew from 'material-ui/lib/svg-icons/action/power-settings-new'
 import GridList from 'material-ui/lib/grid-list/grid-list'
 import GridTile from 'material-ui/lib/grid-list/grid-tile'
-
 
 import Auth from '../actions/auth'
 
@@ -64,17 +61,13 @@ const Home = React.createClass({
     this.context.history.pushState(null, '/login')
   },
 
-  componentDidMount () {
-    const self = this
+  makeRequest (cb) {
     $.ajax({
       url: '/getData',
       dataType: 'json',
       cache: false,
       success: function (data) {
-        self.setState({
-          items: data,
-          selectedItem: data[0].url
-        })
+        cb(data)
       },
       error: function (err) {
         console.log('Error', err)
@@ -82,10 +75,26 @@ const Home = React.createClass({
     })
   },
 
+  componentDidMount () {
+    const self = this
+    function cb (data) {
+      self.setState({
+        items: data,
+        selectedItem: data[0].url
+      })
+    }
+
+    this.makeRequest(cb)
+  },
+
   onUpdate (item) {
     this.setState({
       selectedItem: item
     })
+  },
+
+  isLoggedIn () {
+    return Auth.isLoggedIn()
   },
 
   render() {

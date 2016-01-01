@@ -1,5 +1,5 @@
-var dest = './build',
-  src    = './src'
+const dest = './build',
+  src      = './src'
 
 module.exports = {
 
