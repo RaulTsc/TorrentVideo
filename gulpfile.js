@@ -39,7 +39,9 @@ gulp.task('nodemon', function (cb) {
       'gulpfile.js',
       'node_modules/*',
       'build/**',
-      'src/**'
+      'src/**',
+      'test/**',
+      '.babelrc'
     ]
   })
   .on('start', function () {
