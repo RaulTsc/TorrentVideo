@@ -1,6 +1,7 @@
 const gutil      = require('gulp-util'),
-  prettyHrtime = require('pretty-hrtime'),
-  startTime
+  prettyHrtime   = require('pretty-hrtime')
+
+var startTime
 
 module.exports = {
   start: function(filepath) {

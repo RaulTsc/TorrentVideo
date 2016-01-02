@@ -28,6 +28,7 @@ const MovieList = React.createClass({
   render () {
     const self = this
     let movieList = this.props.items.map(function (item) {
+      item.name = item.name || 'auxKey'
       return (
         <ListItem key={item.name} primaryText={item.name} onTouchTap={self.onUpdate} />
       )
@@ -35,6 +36,7 @@ const MovieList = React.createClass({
 
     return (
       <List
+        className='movieList'
         subheader='Latest Videos'
         style={this.props.style}>
         {movieList}
@@ -70,7 +72,6 @@ const Home = React.createClass({
         cb(data)
       },
       error: function (err) {
-        console.log('Error', err)
       }
     })
   },
@@ -107,6 +108,7 @@ const Home = React.createClass({
     return (
       <div>
         <AppBar
+          className='appBar'
           title='TorrentVideo'
           iconElementLeft={<IconButton><AvVideoLibrary /></IconButton>}
           iconElementRight={<IconButton onTouchTap={this.logout}><ActionPowerSettingsNew /></IconButton>} />
