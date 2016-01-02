@@ -4,7 +4,7 @@ const dest = './build',
 module.exports = {
 
   markup: {
-    src: src + "/www/**",
+    src: src + '/www/**',
     dest: dest
   },
 
@@ -18,6 +18,6 @@ module.exports = {
       dest: dest,
       outputName: 'app.js'
     }],
-    extensions: ['.jsx'],
+    extensions: ['.jsx']
   }
 }

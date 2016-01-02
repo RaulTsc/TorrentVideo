@@ -22,7 +22,7 @@ const Video = React.createClass({
 
 const MovieList = React.createClass({
   onUpdate (oEvent) {
-    this.props.onUpdate(oEvent.target.childNodes[0].data)
+    this.props.onUpdate(oEvent.target.textContent)
   },
 
   render () {
@@ -58,9 +58,13 @@ const Home = React.createClass({
     }
   },
 
+  navToLogin() {
+    this.context.history.pushState(null, '/login')
+  },
+
   logout() {
     Auth.logout()
-    this.context.history.pushState(null, '/login')
+    this.navToLogin()
   },
 
   makeRequest (cb) {
@@ -70,8 +74,6 @@ const Home = React.createClass({
       cache: false,
       success: function (data) {
         cb(data)
-      },
-      error: function (err) {
       }
     })
   },
@@ -101,7 +103,7 @@ const Home = React.createClass({
   render() {
     const style = {
       list: {
-        marginTop: '50px',
+        marginTop: '50px'
       }
     }
 

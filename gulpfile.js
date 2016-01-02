@@ -6,9 +6,9 @@ var gulp       = require('gulp'),
   watchify     = require('watchify'),
   source       = require('vinyl-source-stream'),
   babelify     = require('babelify'),
-  config       = require('./gulp/config'),
-  bundleLogger = require('./gulp/util/bundleLogger'),
-  handleErrors = require('./gulp/util/handleErrors')
+  config       = require('./tools/gulp/config'),
+  bundleLogger = require('./tools/gulp/util/bundleLogger'),
+  handleErrors = require('./tools/gulp/util/handleErrors')
 
 gulp.task('default', ['watch'])
 
@@ -24,7 +24,8 @@ gulp.task('browserSync', ['build', 'nodemon'], function () {
   browserSync.init(null, {
     proxy: 'http://localhost:5000',
     port: 7000,
-    notify: true
+    notify: true,
+    files: ['./build/**']
   })
 })
 
@@ -77,7 +78,7 @@ gulp.task('browserify', function(callback) {
       extensions: config.browserify.extensions,
       // Enable source maps!
       debug: config.browserify.debug
-    });
+    })
 
     var bundle = function() {
       // Log when bundling starts
@@ -94,7 +95,7 @@ gulp.task('browserify', function(callback) {
         // Specify the output destination
         .pipe(gulp.dest(bundleConfig.dest))
         .on('end', reportFinished)
-    };
+    }
 
     bundler.transform(babelify.configure({
       stage: 1

@@ -31,8 +31,8 @@ const Login = React.createClass({
       if(res.success) {
         self.context.history.pushState(null, '/')
       } else {
-        let username = !!res.wrongUsername ? 'The username you have entered could not be found.' : ''
-        let password = !!res.wrongPassword ? 'The password you have entered is incorrect.' : ''
+        let username = res.wrongUsername ? 'The username you have entered could not be found.' : ''
+        let password = res.wrongPassword ? 'The password you have entered is incorrect.' : ''
 
         self.setState({
           usernameFieldState: username,

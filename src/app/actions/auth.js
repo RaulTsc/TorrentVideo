@@ -5,7 +5,6 @@ module.exports = {
 
   login(info, cb) {
     cb = cb || noop
-    const self = this
 
     $.ajax({
       url: '/login',
@@ -15,16 +14,12 @@ module.exports = {
       success: function (data) {
         localStorage.token = data.token
         cb(data)
-      },
-      error: function (err) {
-        console.log('Error', err)
       }
     })
   },
 
   signup(info, cb) {
     cb = cb || noop
-    const self = this
 
     $.ajax({
       url: '/signup',
@@ -34,9 +29,6 @@ module.exports = {
       success: function (data) {
         localStorage.token = data.token
         cb(data)
-      },
-      error: function (err) {
-        console.log('Error', err)
       }
     })
   },

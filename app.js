@@ -4,7 +4,7 @@ var express   = require('express'),
   jwt         = require('jsonwebtoken'),
   path        = require('path'),
   http        = require('http'),
-  Account     = require('./models/accounts'),
+  Account     = require('./backend/models/accounts'),
   mongoose    = require('mongoose'),
   app         = express(),
   PORT        = 5000
@@ -78,11 +78,11 @@ app.post('/signup', function (req, res) {
 })
 
 var DATA_OBJECT = [],
-    SRV_INFO    = {     // Info about the other node instance, the one downloading the torrents
-      host: 'localhost',
-      port: '3000',
-      path: '/data'
-    }
+  SRV_INFO    = {     // Info about the other node instance, the one downloading the torrents
+    host: 'localhost',
+    port: '3000',
+    path: '/data'
+  }
 
 // Get data about the torrents
 app.get('/getData', function (req, res) {

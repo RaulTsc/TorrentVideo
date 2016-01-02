@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
@@ -35,7 +34,7 @@ const Signup = React.createClass({
       if(res.success) {
         self.context.history.pushState(null, '/')
       } else {
-        let username = !!res.wrongUsername ? 'The username is already taken.' : ''
+        let username = res.wrongUsername ? 'The username is already taken.' : ''
 
         self.setState({
           usernameFieldState: username
