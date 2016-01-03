@@ -19,7 +19,11 @@ const Login = React.createClass({
     }
   },
 
-  onLoginPress() {
+  navTo (obj, to) {
+    this.context.history.pushState(obj, to)
+  },
+
+  login() {
     const self = this
 
     let loginInfo = {
@@ -29,7 +33,7 @@ const Login = React.createClass({
 
     function cb (res) {
       if(res.success) {
-        self.context.history.pushState(null, '/')
+        self.navTo(null, '/')
       } else {
         let username = res.wrongUsername ? 'The username you have entered could not be found.' : ''
         let password = res.wrongPassword ? 'The password you have entered is incorrect.' : ''
@@ -41,7 +45,12 @@ const Login = React.createClass({
       }
     }
 
-    Auth.login(loginInfo, cb)
+    if(this.props.Auth) {
+      this.props.Auth.login(loginInfo, cb)
+    } else {
+      Auth.login(loginInfo, cb)
+    }
+
   },
 
   render() {
@@ -82,7 +91,7 @@ const Login = React.createClass({
           label='Login'
           secondary={true}
           style={style.raisedButton}
-          onTouchTap={this.onLoginPress} />
+          onTouchTap={this.login} />
         <p>Not a member?
           <Link to='/signup' style={style.anchor}>Sign up!</Link>
         </p>
