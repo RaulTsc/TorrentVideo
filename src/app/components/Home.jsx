@@ -14,7 +14,7 @@ import Auth from '../actions/auth'
 const Video = React.createClass({
   render () {
     return (
-      <video id="video" className="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" data-setup="{}" src={this.props.item} style={this.props.style}>
+      <video id="video" className="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" src={this.props.item} style={this.props.style}>
       </video>
     )
   }
