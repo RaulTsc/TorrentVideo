@@ -1,4 +1,5 @@
 import React from 'react'
+import MediaQuery from 'react-responsive'
 
 import AppBar from 'material-ui/lib/app-bar'
 import List from 'material-ui/lib/lists/list'
@@ -14,7 +15,7 @@ import Auth from '../actions/auth'
 const Video = React.createClass({
   render () {
     return (
-      <video id="video" className="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" src={this.props.item} style={this.props.style}>
+      <video src={this.props.item} controls preload="auto" style={this.props.style}>
       </video>
     )
   }
@@ -110,21 +111,42 @@ const Home = React.createClass({
 
     return (
       <div>
-        <AppBar
-          className='appBar'
-          title='TorrentVideo'
-          iconElementLeft={<IconButton><AvVideoLibrary /></IconButton>}
-          iconElementRight={<IconButton onTouchTap={this.logout}><ActionPowerSettingsNew /></IconButton>} />
-        <center style={{marginTop: 200}}>
-          <GridList cellHeight={300} style={{width: '100%'}}>
-            <GridTile style={{overflowY: 'auto'}}>
-              <MovieList items={this.state.items} onUpdate={this.onUpdate} listItemStyle={{wordWrap: 'break-word'}} />
-            </GridTile>
-            <GridTile>
-              <Video item={this.state.selectedItem} style={{width: '100%', height: '100%'}} />
-            </GridTile>
-          </GridList>
-        </center>
+        <MediaQuery query='(min-device-width: 1224px)'>
+          <div>
+            <AppBar
+              className='appBar'
+              title='TorrentVideo'
+              iconElementLeft={<IconButton><AvVideoLibrary /></IconButton>}
+              iconElementRight={<IconButton onTouchTap={this.logout}><ActionPowerSettingsNew /></IconButton>} />
+            <center style={{marginTop: 200}}>
+              <GridList cellHeight={300} style={{width: '100%'}}>
+                <GridTile style={{overflowY: 'auto'}}>
+                  <MovieList items={this.state.items} onUpdate={this.onUpdate} listItemStyle={{wordWrap: 'break-word'}} />
+                </GridTile>
+                <GridTile>
+                  <Video item={this.state.selectedItem} style={{width: '520px', height: '300px'}} />
+                </GridTile>
+              </GridList>
+            </center>
+          </div>
+        </MediaQuery>
+        <MediaQuery query='(max-device-width: 1224px)'>
+          <AppBar
+            className='appBar'
+            title='TorrentVideo'
+            iconElementLeft={<IconButton><AvVideoLibrary /></IconButton>}
+            iconElementRight={<IconButton onTouchTap={this.logout}><ActionPowerSettingsNew /></IconButton>} />
+          <center>
+            <GridList cols={1} rows={2} cellHeight={250} style={{width: '100%'}}>
+              <GridTile style={{overflowY: 'auto'}}>
+                <MovieList items={this.state.items} onUpdate={this.onUpdate} listItemStyle={{wordWrap: 'break-word'}} />
+              </GridTile>
+              <GridTile style={{marginTop: '50px'}}>
+                <Video item={this.state.selectedItem} style={{width: '335px', height: '200px'}} />
+              </GridTile>
+            </GridList>
+          </center>
+        </MediaQuery>
       </div>
     )
   }

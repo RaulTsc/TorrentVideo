@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import MediaQuery from 'react-responsive'
 
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
@@ -56,46 +57,99 @@ const Login = React.createClass({
   render() {
     let style = {
       raisedButton: {
-        marginTop: '20px'
+        laptop: {
+          marginTop: '20px'
+        },
+        phone: {
+          marginTop: '20px'
+        }
       },
       container: {
-        paddingTop: '200px',
-        textAlign: 'center'
+        laptop: {
+          paddingTop: '200px',
+          textAlign: 'center'
+        },
+        phone: {
+          paddingTop: '200px',
+          textAlign: 'center'
+        }
       },
       textfield: {
-        width: '400px'
+        laptop: {
+          width: '400px'
+        },
+        phone: {
+          width: '100%'
+        }
       },
       anchor: {
-        textDecoration: 'initial',
-        color: '#00bcd4',
-        marginLeft: '5px'
+        laptop: {
+          textDecoration: 'initial',
+          color: '#00bcd4',
+          marginLeft: '5px'
+        },
+        phone: {
+          textDecoration: 'initial',
+          color: '#00bcd4',
+          marginLeft: '5px'
+        }
       }
     }
 
     return (
-      <div style={style.container}>
-        <TextField
-          ref='username'
-          style={style.textfield}
-          errorText={this.state.usernameFieldState}
-          floatingLabelText='Username' />
-        <br />
-        <TextField
-          ref='password'
-          style={style.textfield}
-          errorText={this.state.passwordFieldState}
-          floatingLabelText='Password'
-          type='password' />
-        <br />
-        <RaisedButton
-          label='Login'
-          secondary={true}
-          style={style.raisedButton}
-          onTouchTap={this.login} />
-        <p>Not a member?
-          <Link to='/signup' style={style.anchor}>Sign up!</Link>
-        </p>
+      <div>
+        <MediaQuery query='(min-device-width: 1224px)'>
+          <div style={style.container.laptop}>
+            <TextField
+              ref='username'
+              style={style.textfield.laptop}
+              errorText={this.state.usernameFieldState}
+              floatingLabelText='Username' />
+            <br />
+            <TextField
+              ref='password'
+              style={style.textfield.laptop}
+              errorText={this.state.passwordFieldState}
+              floatingLabelText='Password'
+              type='password' />
+            <br />
+            <RaisedButton
+              label='Login'
+              secondary={true}
+              style={style.raisedButton.laptop}
+              onTouchTap={this.login} />
+            <p>Not a member?
+              <Link to='/signup' style={style.anchor.laptop}>Sign up!</Link>
+            </p>
+          </div>
+        </MediaQuery>
+        <MediaQuery query='(max-device-width: 1224px)'>
+          <div style={style.container.phone}>
+            <TextField
+              ref='username'
+              style={style.textfield.phone}
+              errorText={this.state.usernameFieldState}
+              floatingLabelText='Username' />
+            <br />
+            <TextField
+              ref='password'
+              style={style.textfield.phone}
+              errorText={this.state.passwordFieldState}
+              floatingLabelText='Password'
+              type='password' />
+            <br />
+            <RaisedButton
+              label='Login'
+              secondary={true}
+              style={style.raisedButton.phone}
+              onTouchTap={this.login} />
+            <p>Not a member?
+              <Link to='/signup' style={style.anchor.phone}>Sign up!</Link>
+            </p>
+          </div>
+        </MediaQuery>
       </div>
+
     )
   }
 

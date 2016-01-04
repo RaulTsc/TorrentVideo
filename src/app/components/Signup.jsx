@@ -1,4 +1,5 @@
 import React from 'react'
+import MediaQuery from 'react-responsive'
 
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
@@ -73,48 +74,101 @@ const Signup = React.createClass({
   render () {
     let style = {
       raisedButton: {
-        marginTop: '20px'
+        laptop: {
+          marginTop: '20px'
+        },
+        phone: {
+          marginTop: '20px'
+        }
       },
       container: {
-        paddingTop: '200px',
-        textAlign: 'center'
+        laptop: {
+          paddingTop: '200px',
+          textAlign: 'center'
+        },
+        phone: {
+          paddingTop: '200px',
+          textAlign: 'center'
+        }
       },
       textfield: {
-        width: '400px'
+        laptop: {
+          width: '100%'
+        },
+        phone: {
+          width: '100%'
+        }
       }
     }
 
     return (
-      <div style={style.container}>
-        <TextField
-          ref='username'
-          style={style.textfield}
-          errorText={this.state.usernameFieldState}
-          floatingLabelText='Username' />
-        <br />
-        <TextField
-          ref='password'
-          id='password'
-          style={style.textfield}
-          errorText={this.state.passwordFieldState}
-          onChange={this.checkEqualPw}
-          floatingLabelText='Password'
-          type='password' />
-        <br />
-        <TextField
-          ref='repassword'
-          id='repassword'
-          style={style.textfield}
-          errorText={this.state.repasswordFieldState}
-          onChange={this.checkEqualPw}
-          floatingLabelText='Re-enter Password'
-          type='password' />
-        <br />
-        <RaisedButton
-          label='Sign up'
-          secondary={true}
-          style={style.raisedButton}
-          onTouchTap={this.onSignupPress} />
+      <div>
+        <MediaQuery query='(min-device-width: 1224px)'>
+          <div style={style.container.laptop}>
+            <TextField
+              ref='username'
+              style={style.textfield.laptop}
+              errorText={this.state.usernameFieldState}
+              floatingLabelText='Username' />
+            <br />
+            <TextField
+              ref='password'
+              id='password'
+              style={style.textfield.laptop}
+              errorText={this.state.passwordFieldState}
+              onChange={this.checkEqualPw}
+              floatingLabelText='Password'
+              type='password' />
+            <br />
+            <TextField
+              ref='repassword'
+              id='repassword'
+              style={style.textfield.laptop}
+              errorText={this.state.repasswordFieldState}
+              onChange={this.checkEqualPw}
+              floatingLabelText='Re-enter Password'
+              type='password' />
+            <br />
+            <RaisedButton
+              label='Sign up'
+              secondary={true}
+              style={style.raisedButton.laptop}
+              onTouchTap={this.onSignupPress} />
+          </div>
+        </MediaQuery>
+        <MediaQuery query='(max-device-width: 1224px)'>
+          <div style={style.container.phone}>
+            <TextField
+              ref='username'
+              style={style.textfield.phone}
+              errorText={this.state.usernameFieldState}
+              floatingLabelText='Username' />
+            <br />
+            <TextField
+              ref='password'
+              id='password'
+              style={style.textfield.phone}
+              errorText={this.state.passwordFieldState}
+              onChange={this.checkEqualPw}
+              floatingLabelText='Password'
+              type='password' />
+            <br />
+            <TextField
+              ref='repassword'
+              id='repassword'
+              style={style.textfield.phone}
+              errorText={this.state.repasswordFieldState}
+              onChange={this.checkEqualPw}
+              floatingLabelText='Re-enter Password'
+              type='password' />
+            <br />
+            <RaisedButton
+              label='Sign up'
+              secondary={true}
+              style={style.raisedButton.phone}
+              onTouchTap={this.onSignupPress} />
+          </div>
+        </MediaQuery>
       </div>
     )
   }
