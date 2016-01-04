@@ -68,12 +68,18 @@ const Home = React.createClass({
   },
 
   makeRequest (cb) {
-    $.ajax({
-      url: '/getData',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        cb(data)
+    fetch('/getData', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(function (res) {
+      if(res.ok) {
+        res.json().then(function (data) {
+          cb(data)
+        })
+      } else {
+        // Error; Server might be down or whatever
       }
     })
   },

@@ -57,11 +57,8 @@ describe('Login', () => {
     ])
   })
 
-  xit('should have call .login() on button click and behave a', () => {
+  xit('should have call .login() on button click and behave accordingly', () => {
     let StubAuth = {
-      login: function (loginInfo, cb) {
-        console.log(loginInfo)
-      }
     }
 
     renderedComponent = TestUtils.renderIntoDocument(<Login Auth={StubAuth} />)
@@ -78,12 +75,12 @@ describe('Login', () => {
 
     TestUtils.Simulate.change(inputs[0], {
       target: {
-        value: 'penis'
+        value: 'username'
       }
     })
     TestUtils.Simulate.change(inputs[1], {
       target: {
-        value: 'penis2'
+        value: 'password'
       }
     })
 

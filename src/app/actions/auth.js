@@ -6,29 +6,45 @@ module.exports = {
   login(info, cb) {
     cb = cb || noop
 
-    $.ajax({
-      url: '/login',
-      dataType: 'json',
-      type: 'POST',
-      data: info,
-      success: function (data) {
-        localStorage.token = data.token
-        cb(data)
+    fetch('/login', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    }).then(function (res) {
+      if(res.ok) {
+        res.json().then(function (data) {
+          localStorage.token = data.token
+          cb(data)
+        })
+      } else {
+        // Error; server might be down or whatever
+        // Not handled yet
       }
     })
+
   },
 
   signup(info, cb) {
     cb = cb || noop
 
-    $.ajax({
-      url: '/signup',
-      dataType: 'json',
-      type: 'POST',
-      data: info,
-      success: function (data) {
-        localStorage.token = data.token
-        cb(data)
+    fetch('/signup', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    }).then(function (res) {
+      if(res.ok) {
+        res.json().then(function (data) {
+          localStorage.token = data.token
+          cb(data)
+        })
+      } else {
+        // Error; server might be down; not handled yet
       }
     })
   },

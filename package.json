@@ -24,7 +24,6 @@
     "gulp-nodemon": "^2.0.6",
     "gulp-notify": "^2.1.0",
     "gulp-util": "^3.0.1",
-    "jquery": "^2.1.4",
     "jsdom": "^7.2.2",
     "pretty-hrtime": "^0.2.2",
     "react-addons-test-utils": "^0.14.3",
