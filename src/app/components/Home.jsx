@@ -30,7 +30,7 @@ const MovieList = React.createClass({
     let movieList = this.props.items.map(function (item) {
       item.name = item.name || 'auxKey'
       return (
-        <ListItem key={item.name} primaryText={item.name} onTouchTap={self.onUpdate} />
+        <ListItem key={item.name} primaryText={item.name} onTouchTap={self.onUpdate} style={self.props.listItemStyle} />
       )
     })
 
@@ -107,11 +107,6 @@ const Home = React.createClass({
   },
 
   render() {
-    const style = {
-      list: {
-        marginTop: '50px'
-      }
-    }
 
     return (
       <div>
@@ -120,19 +115,16 @@ const Home = React.createClass({
           title='TorrentVideo'
           iconElementLeft={<IconButton><AvVideoLibrary /></IconButton>}
           iconElementRight={<IconButton onTouchTap={this.logout}><ActionPowerSettingsNew /></IconButton>} />
-        <GridList
-          cols={6}
-          cellHeight={200}
-          padding={200}
-          style={{width: 2000, height: 720, overflow: 'hidden'}}
-        >
-          <GridTile cols={2} rows={3} style={{overflowY: 'auto'}}>
-            <MovieList items={this.state.items} onUpdate={this.onUpdate} style={style.list} styleListItem={style.listItem} />
-          </GridTile>
-          <GridTile cols={4} rows={2} style={{marginTop: '200px'}} >
-            <Video item={this.state.selectedItem} />
-          </GridTile>
-        </GridList>
+        <center style={{marginTop: 200}}>
+          <GridList cellHeight={300} style={{width: '100%'}}>
+            <GridTile style={{overflowY: 'auto'}}>
+              <MovieList items={this.state.items} onUpdate={this.onUpdate} listItemStyle={{wordWrap: 'break-word'}} />
+            </GridTile>
+            <GridTile>
+              <Video item={this.state.selectedItem} style={{width: '100%', height: '100%'}} />
+            </GridTile>
+          </GridList>
+        </center>
       </div>
     )
   }
