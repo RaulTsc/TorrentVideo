@@ -1,0 +1,24 @@
+{
+  "name": "videostreaming",
+  "version": "0.0.1",
+  "description": "Video Streaming client",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test",
+    "start": "node app.js"
+  },
+  "author": "Raul Tomescu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "feedparser": "^1.1.4",
+    "mocha": "^2.3.3",
+    "mongoose": "^4.1.10",
+    "request": "^2.65.0",
+    "should": "^8.0.2",
+    "should-promised": "^0.3.1",
+    "webtorrent": "^0.62.3",
+    "xml2js": "^0.4.15"
+  }
+}
