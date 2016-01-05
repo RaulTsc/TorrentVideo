@@ -93,7 +93,7 @@ const Signup = React.createClass({
       },
       textfield: {
         laptop: {
-          width: '100%'
+          width: '400px'
         },
         phone: {
           width: '100%'
